@@ -2,6 +2,7 @@ package berror
 
 import (
 	"errors"
+	"fmt"
 
 	jsoniter "github.com/json-iterator/go"
 	"github.com/lamber92/go-brick/berror/bcode"
@@ -173,6 +174,11 @@ func NewInvalidArgument(err error, reason string, detail ...any) error {
 	return NewWithSkip(err, bstatus.New(bcode.InvalidArgument, reason, ds), 1)
 }
 
+// NewInvalidArgumentf create a invalid argument error with format
+func NewInvalidArgumentf(err error, format string, args ...any) error {
+	return NewWithSkip(err, bstatus.New(bcode.InvalidArgument, fmt.Sprintf(format, args...), nil), 1)
+}
+
 // NewNotFound create a not found error
 func NewNotFound(err error, reason string, detail ...any) error {
 	var ds any = nil
@@ -180,6 +186,11 @@ func NewNotFound(err error, reason string, detail ...any) error {
 		ds = detail[0]
 	}
 	return NewWithSkip(err, bstatus.New(bcode.NotFound, reason, ds), 1)
+}
+
+// NewNotFoundf create a not found error with format
+func NewNotFoundf(err error, format string, args ...any) error {
+	return NewWithSkip(err, bstatus.New(bcode.NotFound, fmt.Sprintf(format, args...), nil), 1)
 }
 
 // NewRequestTimeout create a request timeout error
@@ -191,6 +202,11 @@ func NewRequestTimeout(err error, reason string, detail ...any) error {
 	return NewWithSkip(err, bstatus.New(bcode.RequestTimeout, reason, ds), 1)
 }
 
+// NewRequestTimeoutf create a request timeout error with format
+func NewRequestTimeoutf(err error, format string, args ...any) error {
+	return NewWithSkip(err, bstatus.New(bcode.RequestTimeout, fmt.Sprintf(format, args...), nil), 1)
+}
+
 // NewGatewayTimeout create a gateway timeout error
 func NewGatewayTimeout(err error, reason string, detail ...any) error {
 	var ds any = nil
@@ -198,6 +214,11 @@ func NewGatewayTimeout(err error, reason string, detail ...any) error {
 		ds = detail[0]
 	}
 	return NewWithSkip(err, bstatus.New(bcode.GatewayTimeout, reason, ds), 1)
+}
+
+// NewGatewayTimeoutf create a gateway timeout error with format
+func NewGatewayTimeoutf(err error, format string, args ...any) error {
+	return NewWithSkip(err, bstatus.New(bcode.GatewayTimeout, fmt.Sprintf(format, args...), nil), 1)
 }
 
 // NewClientClose create a client close error
@@ -209,6 +230,11 @@ func NewClientClose(err error, reason string, detail ...any) error {
 	return NewWithSkip(err, bstatus.New(bcode.ClientClosed, reason, ds), 1)
 }
 
+// NewClientClosef create a client close error with format
+func NewClientClosef(err error, format string, args ...any) error {
+	return NewWithSkip(err, bstatus.New(bcode.ClientClosed, fmt.Sprintf(format, args...), nil), 1)
+}
+
 // NewAlreadyExists create a already exists error
 func NewAlreadyExists(err error, reason string, detail ...any) error {
 	var ds any = nil
@@ -218,6 +244,11 @@ func NewAlreadyExists(err error, reason string, detail ...any) error {
 	return NewWithSkip(err, bstatus.New(bcode.AlreadyExists, reason, ds), 1)
 }
 
+// NewAlreadyExistsf create a already exists error with format
+func NewAlreadyExistsf(err error, format string, args ...any) error {
+	return NewWithSkip(err, bstatus.New(bcode.AlreadyExists, fmt.Sprintf(format, args...), nil), 1)
+}
+
 // NewInternalError create a internal error
 func NewInternalError(err error, reason string, detail ...any) error {
 	var ds any = nil
@@ -225,6 +256,11 @@ func NewInternalError(err error, reason string, detail ...any) error {
 		ds = detail[0]
 	}
 	return NewWithSkip(err, bstatus.New(bcode.InternalError, reason, ds), 1)
+}
+
+// NewInternalErrorf create a internal error with format
+func NewInternalErrorf(err error, format string, args ...any) error {
+	return NewWithSkip(err, bstatus.New(bcode.InternalError, fmt.Sprintf(format, args...), nil), 1)
 }
 
 // IsCode determine whether the error code of err meets expectations.

@@ -1,6 +1,7 @@
 package berror
 
 import (
+	"fmt"
 	"sync"
 
 	"github.com/go-redis/redis/v8"
@@ -42,6 +43,11 @@ func Convert(err error, reason string, detail ...any) error {
 		d = detail[0]
 	}
 	return defConv.Convert(err, reason, d)
+}
+
+// Convertf Convert with format
+func Convertf(err error, format string, args ...any) error {
+	return defConv.Convert(err, fmt.Sprintf(format, args...), nil)
 }
 
 // ConvertWithOption according to the built-in rules, convert the incoming error to Error.

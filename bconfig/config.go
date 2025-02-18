@@ -34,6 +34,7 @@ func Env() benv.Env {
 type Option struct {
 	Type      bstorage.Type
 	ConfigDir string
+	Filename  string
 }
 
 func Init(opt Option) {
@@ -48,6 +49,11 @@ func Init(opt Option) {
 		}
 		if len(opt.ConfigDir) > 0 {
 			yaml.InitRootDir(opt.ConfigDir)
+		}
+		if len(opt.Filename) > 0 {
+			yaml.InitDefaultFilename(opt.Filename)
+		} else {
+			yaml.InitDefaultFilename(_env.GetName())
 		}
 		// init config manager from diff way by Type
 		switch opt.Type {

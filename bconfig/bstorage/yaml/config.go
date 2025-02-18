@@ -16,16 +16,16 @@ import (
 )
 
 const (
-	defaultRoot     = "./config"
-	defaultFilename = "config"
+	defaultRoot = "./config"
 
 	configTypeStatic  = "static"
 	configTypeDynamic = "dynamic"
 )
 
 var (
-	_root = defaultRoot
-	_once sync.Once
+	_root            = defaultRoot
+	_once            sync.Once
+	_defaultFilename = "config"
 )
 
 // InitRootDir specify the configuration file root directory path.
@@ -34,6 +34,11 @@ func InitRootDir(dir string) {
 	_once.Do(func() {
 		_root = dir
 	})
+}
+
+// InitDefaultFilename specify the configuration default filename path.
+func InitDefaultFilename(filename string) {
+	_defaultFilename = filename
 }
 
 // NewStatic new a static config handler(load configuration once).
@@ -69,7 +74,7 @@ func (c *yamlConfig) GetType() bstorage.Type {
 }
 
 func (c *yamlConfig) Load(ctx context.Context, key string, filenames ...string) (out bstorage.Value, err error) {
-	var filename = defaultFilename
+	var filename = _defaultFilename
 	if len(filenames) > 0 {
 		filename = filenames[0]
 	}
